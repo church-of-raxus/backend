@@ -1,0 +1,37 @@
+{
+  "name": "church-of-raxusbackend",
+  "version": "1.0.0",
+  "description": "Dorime",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/church-of-raxus/backend.git"
+  },
+  "keywords": [
+    "raxus",
+    "joel",
+    "cheeseman",
+    "joel",
+    "pa",
+    "bumfuck",
+    "south",
+    "central",
+    "bumfuck",
+    "south",
+    "central",
+    "pa"
+  ],
+  "author": "RudRecciah, Melumi, Maxim5995",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/church-of-raxus/backend/issues"
+  },
+  "homepage": "https://github.com/church-of-raxus/backend#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "yaml": "^1.10.2"
+  }
+}
