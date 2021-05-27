@@ -5,6 +5,7 @@ module.exports = class {
     this.yaml = require("yaml");
     this.uuid = require("uuid");
     this.sh = require("shelljs");
+    this.sh.config.verbose = true;
     
     //init express
     const express = require("express");
@@ -60,11 +61,8 @@ ssl:
           this.fs.removeSync("./acme.sh/");
         }
         console.log("Downloading acme.sh");
-        this.sh.exec("git clone https://github.com/acmesh-official/acme.sh.git", function(code) {
-          console.log(`Git clone exit code: ${code}`);
-        });
+        this.sh.exec("git clone https://github.com/acmesh-official/acme.sh.git");
         console.log("Installing acme.sh");
-        this.sh.exec("ls");
         this.sh.exec(`bash ./acme.sh/acme.sh --install --accountemail ${this.config.ssl.generatecerts.email} --home ../src/ssl/acme/ --cert-home ../src/ssl/certs`);
       }
     }catch(e) {
