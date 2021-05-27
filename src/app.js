@@ -14,7 +14,6 @@ module.exports = class {
     //load config and generate ssl
     this.ssl = false;
     const config = `# The port to run the server on
-# The port to run the server on
 port: 5000
 # The IP/hostname to run the server on
 hostname: localhost
@@ -60,15 +59,16 @@ ssl:
         if(this.fs.existsSync("./acme.sh/")) {
           this.fs.removeSync("./acme.sh/");
         }
-        console.log("Installing acme.sh dependencies...");
-        this.sh.exec("bash ./src/ssl/ssl.sh");
-        // this.sh.exec("sudo apt update");
-        // this.sh.exec("sudo apt install curl");
-        console.log("Dependencies installed");
-        console.log("Installing acme.sh...");
-        this.sh.exec("git clone https://github.com/acmesh-official/acme.sh.git");
-        this.sh.exec(`bash ./acme.sh/acme.sh --install --accountemail ${this.config.ssl.generatecerts.email} --home ../src/ssl/acme/ --cert-home ../src/ssl/certs`);
-        console.log("Acme.sh installed");
+        this.sh.exec("ls");
+        // console.log("Installing acme.sh dependencies...");
+        // this.sh.exec("bash ./src/ssl/ssl.sh");
+        // // this.sh.exec("sudo apt update");
+        // // this.sh.exec("sudo apt install curl");
+        // console.log("Dependencies installed");
+        // console.log("Installing acme.sh...");
+        // this.sh.exec("git clone https://github.com/acmesh-official/acme.sh.git");
+        // this.sh.exec(`bash ./acme.sh/acme.sh --install --accountemail ${this.config.ssl.generatecerts.email} --home ../src/ssl/acme/ --cert-home ../src/ssl/certs`);
+        // console.log("Acme.sh installed");
       }
     }catch(e) {
       console.error(e);
