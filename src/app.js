@@ -16,6 +16,7 @@ module.exports = class {
     //load config
     const config = this.fs.readFileSync("./src/config.yml", "utf8");
     if(!this.fs.existsSync("./data/config.yml")) {
+      this.fs.mkdirsSync("./data/");
       this.fs.writeFileSync("./data/config.yml", config);
       throw "Please setup your local data and/or config!";
     }
