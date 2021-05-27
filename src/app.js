@@ -4,12 +4,14 @@ module.exports = class {
     this.fs = require("fs-extra");
     this.yaml = require("yaml");
     this.uuid = require("uuid");
+    this.sh = require("shelljs");
     
     //init express
     const express = require("express");
     this.server = express();
     
     //load config and generate ssl
+    this.ssl = false;
     const config = `# The port to run the server on
 # The port to run the server on
 port: 5000
@@ -27,7 +29,7 @@ ssl:
   # Keep in mind this will delete your current certs in the location specified above and replace them with new ones and will disable auto-renewal (this way the certs are renewed every time you restart the server)
   # Also note that this only supports Cloudflare using your Global API Key
   # Refer to https://github.com/acmesh-official/acme.sh/wiki/dnsapi#1-cloudflare-option for more information
-  generate-certs:
+  generatecerts:
     enable: true
     key: '100% real key'
     email: 'so@real.pogger'
@@ -45,6 +47,7 @@ ssl:
       }
       this.config = this.yaml.parse(this.fs.readFileSync("./config.yml", "utf8"));
       if(this.config.ssl.enable === true) {
+        this.ssl = true;
         if(this.fs.existsSync("./src/ssl/acme")) {
           this.fs.removeSync("./src/ssl/acme");
           this.fs.mkdirsSync("./src/ssl/acme");
@@ -53,6 +56,15 @@ ssl:
           this.fs.removeSync("./src/ssl/certs");
           this.fs.mkdirsSync("./src/ssl/certs");
         }
+        if(this.fs.existsSync("./acme.sh/")) {
+          this.fs.removeSync("./acme.sh/");
+        }
+        console.log("Downloading acme.sh");
+        this.sh.exec("git clone https://github.com/acmesh-official/acme.sh.git", function(code) {
+          console.log(`Git clone exit code: ${code}`);
+        });
+        console.log("Installing acme.sh");
+        this.sh.exec(`bash ./acme.sh/acme.sh --install --accountemail ${this.config.ssl.generatecerts.email} --home ../src/ssl/acme/ --cert-home ../src/ssl/certs`);
       }
     }catch(e) {
       console.error(e);
@@ -73,7 +85,11 @@ ssl:
     
     //init server
     this.server.listen(this.config.port, this.config.hostname, () => {
-      console.log(`Express server listening at http://0.0.0.0:${this.config.port}`);
+      if(this.ssl === true) {
+        console.log(`Express server listening at https://${this.config.hostname}:${this.config.port}`);
+      }else{
+        console.log(`Express server listening at http://${this.config.hostname}:${this.config.port}`);
+      }
     });
     
     //log success
