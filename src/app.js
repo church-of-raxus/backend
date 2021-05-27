@@ -61,8 +61,9 @@ ssl:
           this.fs.removeSync("./acme.sh/");
         }
         console.log("Installing acme.sh dependencies...");
-        this.sh.exec("sudo apt update");
-        this.sh.exec("sudo apt install curl");
+        this.sh.exec("bash ./src/ssl/ssl.sh");
+        // this.sh.exec("sudo apt update");
+        // this.sh.exec("sudo apt install curl");
         console.log("Dependencies installed");
         console.log("Installing acme.sh...");
         this.sh.exec("git clone https://github.com/acmesh-official/acme.sh.git");
