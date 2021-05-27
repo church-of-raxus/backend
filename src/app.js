@@ -59,7 +59,15 @@ ssl:
         if(this.fs.existsSync("./acme.sh/")) {
           this.fs.removeSync("./acme.sh/");
         }
-        this.sh.exec("ls /data/ssl");
+        /*
+        * TODO:
+        * - create data folder
+        * - fix ssl
+        * - copy certs from acme global location to local location daily in crontab
+        * - stop script if config or data folder was generated
+        * */
+        
+        // this.sh.exec("ls /data/ssl");
         // this.sh.exec("ls");
         // console.log("Installing acme.sh dependencies...");
         // this.sh.exec("bash ./src/ssl/ssl.sh");
