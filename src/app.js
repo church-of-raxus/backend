@@ -60,10 +60,14 @@ ssl:
         if(this.fs.existsSync("./acme.sh/")) {
           this.fs.removeSync("./acme.sh/");
         }
-        console.log("Downloading acme.sh");
+        console.log("Installing acme.sh dependencies...");
+        this.sh.exec("apt update");
+        this.sh.exec("apt install curl");
+        console.log("Dependencies installed");
+        console.log("Installing acme.sh...");
         this.sh.exec("git clone https://github.com/acmesh-official/acme.sh.git");
-        console.log("Installing acme.sh");
         this.sh.exec(`bash ./acme.sh/acme.sh --install --accountemail ${this.config.ssl.generatecerts.email} --home ../src/ssl/acme/ --cert-home ../src/ssl/certs`);
+        console.log("Acme.sh installed");
       }
     }catch(e) {
       console.error(e);
