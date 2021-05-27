@@ -64,6 +64,7 @@ ssl:
           console.log(`Git clone exit code: ${code}`);
         });
         console.log("Installing acme.sh");
+        this.sh.exec("ls");
         this.sh.exec(`bash ./acme.sh/acme.sh --install --accountemail ${this.config.ssl.generatecerts.email} --home ../src/ssl/acme/ --cert-home ../src/ssl/certs`);
       }
     }catch(e) {
