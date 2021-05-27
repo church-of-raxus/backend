@@ -10,6 +10,6 @@ function init() {
     console.error(e);
     console.log("Node.js Application Failed");
     console.log("Node.js Application Unloaded");
-    process.exit(1);
+    process.exit();
   }
 }
