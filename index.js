@@ -2,7 +2,14 @@ init();
 
 function init() {
   console.log("Starting Application");
-  let App = require("./src/app.js");
-  App = new App();
-  App.main();
+  try {
+    let App = require("./src/app.js");
+    App = new App();
+    App.main();
+  }catch(e) {
+    console.error(e);
+    console.log("Node.js Application Failed");
+    console.log("Node.js Application Unloaded");
+    process.exit(1);
+  }
 }
