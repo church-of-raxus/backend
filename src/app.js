@@ -61,11 +61,12 @@ ssl:
           this.fs.removeSync("./acme.sh/");
         }
         console.log("Installing acme.sh dependencies...");
-        this.sh.exec("apt update");
-        this.sh.exec("apt install curl");
+        this.sh.exec("sudo apt update");
+        this.sh.exec("sudo apt install curl");
         console.log("Dependencies installed");
         console.log("Installing acme.sh...");
-        this.sh.exec(`wget -O -  https://raw.githubusercontent.com/acmesh-official/acme.sh/master/acme.sh | bash ./acme.sh/acme.sh --install --accountemail ${this.config.ssl.generatecerts.email} --home ../src/ssl/acme/ --cert-home ../src/ssl/certs`);
+        this.sh.exec("git clone https://github.com/acmesh-official/acme.sh.git");
+        this.sh.exec(`bash ./acme.sh/acme.sh --install --accountemail ${this.config.ssl.generatecerts.email} --home ../src/ssl/acme/ --cert-home ../src/ssl/certs`);
         console.log("Acme.sh installed");
       }
     }catch(e) {
