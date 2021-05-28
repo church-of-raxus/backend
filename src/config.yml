@@ -8,9 +8,9 @@ hostname: localhost
 ssl:
   # Use ssl
   enable: false
-  # Key and fullchain name (these will be stored inside ../src/ssl/, so write them assuming you're inside ../src/ssl/)
+  # Key and fullchain name (these will be stored inside ../data/ssl/, so write them assuming you're inside ../data/ssl/)
   location:
     key: './your.key'
     fullchain: './full.chain'
-  # In the active deployment's case, SSL certificates need to be copied from the original certificates to local ones. When no certs are found in ../src/ssl/, a script is run and replaces them. If for whatever reason you need to do something like this too, enable this to delete certificates when the application is stopped using the stop command.
+  # In the active deployment's case, SSL certificates need to be copied from the original certificates to local ones. When no certs are found in ../data/ssl/, a script is run and replaces them. If for whatever reason you need to do something like this too, enable this to delete certificates when the application is stopped using the stop command.
   forceRegen: true

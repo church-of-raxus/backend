@@ -33,8 +33,8 @@ module.exports = class {
     this.ssl = false;
     if(this.config.ssl.enable === true) {
       this.ssl = true;
-      if(!this.fs.existsSync("./src/ssl/")) {
-        throw "You need to put ssl certificates in ./src/ssl/";
+      if(!this.fs.existsSync("./data/ssl/")) {
+        throw "You need to put ssl certificates in ./data/ssl/";
       }
     }
   }
@@ -70,9 +70,12 @@ module.exports = class {
     });
     readline.question("", command => {
       if(command === "stop") {
-        if(this.config.ssl.forceRegen && this.fs.pathExistsSync("./src/ssl/")) {
-          this.fs.removeSync("./src/ssl/");
+        if(this.config.ssl.forceRegen && this.fs.pathExistsSync("./data/ssl/")) {
+          this.fs.removeSync("./data/ssl/");
         }
+        console.log("SSL certs removed");
+        console.log("Node Application Unloaded");
+        console.log("Goodbye");
         process.exit();
       }
     });
