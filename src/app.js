@@ -107,8 +107,8 @@ module.exports = class {
         console.log("Goodbye");
         process.exit();
       }else if(command === "prodstop") {
-        if(this.fs.pathExistsSync("./data/ssl/")) {
-          this.fs.removeSync("./data/ssl/");
+        if(this.fs.pathExistsSync(this.config.ssl.location.folder)) {
+          this.fs.removeSync(this.config.ssl.location.folder);
           console.log("SSL certs removed");
         }else{
           console.log("SSL certs didn't exist, so they were not removed");
