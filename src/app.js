@@ -78,8 +78,8 @@ module.exports = class {
       }else if(command === "prodstop") {
         if(this.config.ssl.forceRegen && this.fs.pathExistsSync("./data/ssl/")) {
           this.fs.removeSync("./data/ssl/");
+          console.log("SSL certs removed");
         }
-        console.log("SSL certs removed");
         console.log("Node.js Application Unloaded");
         console.log("Goodbye");
         process.exit();
