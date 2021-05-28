@@ -80,6 +80,9 @@ module.exports = class {
           this.fs.removeSync("./data/ssl/");
         }
         console.log("SSL certs removed");
+        console.log("Node.js Application Unloaded");
+        console.log("Goodbye");
+        process.exit();
       }
     });
     return null;
