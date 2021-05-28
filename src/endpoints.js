@@ -6,6 +6,7 @@ module.exports = class {
       const uuid = this.uuid.v4();
       console.log(`New request to endpoint "/". ID: ${uuid}`);
       res.setHeader("Content-Type", "text/plain");
+      console.log(req.body);
       res.send("{hello: \"world\"}");
       console.log(`Response to request ${uuid} sent from endpoint "/".`);
     });

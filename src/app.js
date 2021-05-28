@@ -6,12 +6,14 @@ module.exports = class {
     this.yaml = require("yaml");
     this.cors = require("cors");
     this.https = require("https");
+    this.bodyParser = require("body-parser");
     this.EndpointHandler = require("./endpoints.js");
     console.log("Dependencies loaded");
     
     //load express
     const express = require("express");
     this.server = express();
+    this.server.use(this.bodyParser.json());
     console.log("Express loaded");
   
     //load config
