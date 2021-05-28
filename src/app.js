@@ -70,12 +70,17 @@ module.exports = class {
     new this.EndpointHandler(this.server);
     
     //load server
+    console.log("Starting server");
     if(this.ssl) {
+      console.log("SSL enabled, using HTTPS server");
       this.secureserver.listen(this.config.port, this.config.hostname, () => {
+        console.log("Server running");
         console.log(`HTTPS server listening at https://${this.config.hostname}:${this.config.port}`);
       });
     }else{
+      console.log("SSL disabled, using HTTP server");
       this.server.listen(this.config.port, this.config.hostname, () => {
+        console.log("Server running");
         console.log(`HTTP server listening at http://${this.config.hostname}:${this.config.port}`);
       });
     }
