@@ -14,10 +14,6 @@ module.exports = class {
     const express = require("express");
     this.server = express();
     console.log("Express loaded");
-    if(this.config.cors) {
-      this.server.use(this.cors);
-      console.log("Express using CORS");
-    }
   
     //load config
     const config = this.fs.readFileSync("./src/config.yml", "utf8");
@@ -34,6 +30,12 @@ module.exports = class {
       throw "Server disabled, stopping";
     }else{
       console.log("Server enabled, continuing");
+    }
+  
+    //use CORS
+    if(this.config.cors) {
+      this.server.use(this.cors);
+      console.log("Express using CORS");
     }
     
     //enable ssl
