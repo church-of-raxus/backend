@@ -51,7 +51,7 @@ module.exports = class {
     console.log("Running main");
     
     //load endpoints
-    require("./src/endpoints.js");
+    require("./endpoints.js");
     
     //load server
     if(this.ssl) {
