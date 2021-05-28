@@ -9,6 +9,7 @@ function init() {
   }catch(e) {
     console.error(e);
     console.log("Node.js Application Failed");
+    console.log("stop");
     console.log("Node.js Application Unloaded");
     process.exit();
   }
