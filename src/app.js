@@ -83,15 +83,15 @@ module.exports = class {
           console.log("SSL certs didn't exist, so they were not removed");
         }
         console.log("Now stop the server manually via \"stop\" again, or wait for it to stop via the power action (if this instance is the active deployment)");
-      }
-      return null;
-    });
-    readline.question("", command => {
-      if(command === "stop") {
-        console.log("Stop command sent twice");
-        console.log("If this was manually executed and you got here without using \"prodstop\", something's gone horribly wrong");
-        console.log("Node.js Application Unloaded");
-        console.log("Goodbye");
+        readline.question("", command => {
+          if(command === "stop") {
+            console.log("Stop command sent twice");
+            console.log("If this was manually executed and you got here without using \"prodstop\", something's gone horribly wrong");
+            console.log("Node.js Application Unloaded");
+            console.log("Goodbye");
+            process.exit();
+          }
+        });
       }
     });
     return null;
