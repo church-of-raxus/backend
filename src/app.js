@@ -34,7 +34,7 @@ module.exports = class {
   
     //use CORS
     if(this.config.cors) {
-      this.server.use(this.cors);
+      this.server.use(this.cors());
       console.log("Express using CORS");
     }
     
