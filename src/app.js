@@ -74,7 +74,7 @@ module.exports = class {
           this.fs.removeSync("./data/ssl/");
         }
         console.log("SSL certs removed");
-        console.log("Node Application Unloaded");
+        console.log("Node.js Application Unloaded");
         console.log("Goodbye");
         process.exit();
       }
