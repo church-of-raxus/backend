@@ -48,14 +48,14 @@ module.exports = class {
       this.secureserver = this.https.createServer({
         key: this.fs.readFileSync(this.config.ssl.location.key),
         cert: this.fs.readFileSync(this.config.ssl.location.fullchain)
-      });
+      }, this.server);
       console.log("SSL enabled");
     }
   }
   
   main() {
     //load endpoints
-    this.secureserver.get("/", (req, res) => {
+    this.server.get("/", (req, res) => {
       const uuid = this.uuid.v4();
       console.log(`New request to endpoint "/" by ${req.hostname}. ID: ${uuid}`);
       res.send("Hello World!");
