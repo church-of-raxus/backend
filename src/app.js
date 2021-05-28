@@ -23,6 +23,12 @@ module.exports = class {
     this.config = this.yaml.parse(this.fs.readFileSync("./data/config.yml", "utf8"));
     console.log("Config loaded");
     
+    if(!this.config.enable) {
+      throw "Config disabled, server is not allowed to start";
+    }else{
+      console.log("Config enabled, continuing");
+    }
+    
     //enable ssl
     this.ssl = false;
     if(this.config.ssl.enable === true) {

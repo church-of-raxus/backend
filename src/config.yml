@@ -1,3 +1,5 @@
+# Whether or not to enable the config. If this is false, the server won't run (this is required to prevent the server from restarting after being installed in the active deployment's case)
+enable: false
 # The port to run the server on
 port: 5000
 # The IP/hostname to run the server on
