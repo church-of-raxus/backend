@@ -3,9 +3,6 @@ module.exports = class {
     //load imports
     this.fs = require("fs-extra");
     this.yaml = require("yaml");
-    this.uuid = require("uuid");
-    this.sh = require("shelljs");
-    this.sh.config.verbose = true;
     this.cors = require("cors");
     this.https = require("https");
     console.log("Modules imported");
@@ -47,17 +44,14 @@ module.exports = class {
       }
       console.log("SSL enabled");
     }
+    console.log("App constructed");
   }
   
   main() {
+    console.log("Running main");
+    
     //load endpoints
-    this.server.get("/", (req, res) => {
-      const uuid = this.uuid.v4();
-      console.log(`New request to endpoint "/" by ${req.hostname}. ID: ${uuid}`);
-      res.send("Hello World!");
-      console.log(`Response to request ${uuid} from ${req.hostname} sent from endpoint "/".`);
-    });
-    console.log("Root endpoint loaded");
+    require("./src/endpoints.js");
     
     //load server
     if(this.ssl) {
