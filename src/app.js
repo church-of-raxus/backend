@@ -70,13 +70,16 @@ module.exports = class {
     });
     readline.question("", command => {
       if(command === "stop") {
+        console.log("SSL certs were NOT removed");
+        console.log("If you need to remove them, either do it manually or stop the server with \"prodstop\"");
+        console.log("Node.js Application Unloaded");
+        console.log("Goodbye");
+        process.exit();
+      }else if(command === "prodstop") {
         if(this.config.ssl.forceRegen && this.fs.pathExistsSync("./data/ssl/")) {
           this.fs.removeSync("./data/ssl/");
         }
         console.log("SSL certs removed");
-        console.log("Node.js Application Unloaded");
-        console.log("Goodbye");
-        process.exit();
       }
     });
     return null;
