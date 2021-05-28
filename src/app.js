@@ -84,6 +84,7 @@ module.exports = class {
         }
         console.log("Now stop the server manually via \"stop\" again, or wait for it to stop via the power action (if this instance is the active deployment)");
       }
+      return null;
     });
     readline.question("", command => {
       if(command === "stop") {
