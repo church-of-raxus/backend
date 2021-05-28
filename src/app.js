@@ -55,7 +55,7 @@ module.exports = class {
   
   main() {
     //load endpoints
-    this.server.get("/", (req, res) => {
+    this.secureserver.get("/", (req, res) => {
       const uuid = this.uuid.v4();
       console.log(`New request to endpoint "/" by ${req.hostname}. ID: ${uuid}`);
       res.send("Hello World!");
