@@ -79,6 +79,8 @@ module.exports = class {
         if(this.fs.pathExistsSync("./data/ssl/")) {
           this.fs.removeSync("./data/ssl/");
           console.log("SSL certs removed");
+        }else{
+          console.log("SSL certs didn't exist, so they were not removed");
         }
         console.log("Now stop the server manually, or wait for it to stop via the power action (if this instance is the active deployment)");
       }
