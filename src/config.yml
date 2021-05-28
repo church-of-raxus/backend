@@ -1,14 +1,17 @@
-# Whether or not to enable the config. If this is false, the server won't run (this is required to prevent the server from restarting after being installed in the active deployment's case)
+# Whether or not to enable the server. If this is false, the server won't run (this is required to prevent the server from restarting after being installed in the active deployment's case)
 enable: false
 # The port to run the server on
 port: 5000
 # The IP/hostname to run the server on
 hostname: localhost
+# CORS settings
+cors: false
 # SSL settings
 ssl:
   # Use ssl
   enable: false
-  # Key and fullchain name (these will be stored inside ../data/ssl/, so write them assuming you're inside ../data/ssl/)
+  # Key and fullchain location from the location of index.js
   location:
-    key: './your.key'
-    fullchain: './full.chain'
+    folder: './data/ssl/'
+    key: './data/ssl/ssl.key'
+    fullchain: './data/ssl/full.chain'

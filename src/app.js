@@ -1,17 +1,23 @@
 module.exports = class {
   constructor() {
-    //imports
+    //load imports
     this.fs = require("fs-extra");
     this.yaml = require("yaml");
     this.uuid = require("uuid");
     this.sh = require("shelljs");
     this.sh.config.verbose = true;
+    this.cors = require("cors");
+    this.https = require("https");
     console.log("Modules imported");
     
-    //init express
+    //load express
     const express = require("express");
     this.server = express();
-    console.log("Express initated");
+    console.log("Express loaded");
+    if(this.config.cors) {
+      this.server.use(this.cors);
+      console.log("Express using CORS");
+    }
   
     //load config
     const config = this.fs.readFileSync("./src/config.yml", "utf8");
@@ -23,47 +29,55 @@ module.exports = class {
     this.config = this.yaml.parse(this.fs.readFileSync("./data/config.yml", "utf8"));
     console.log("Config loaded");
     
+    //check if server is enabled
     if(!this.config.enable) {
-      throw "Config disabled, server is not allowed to start";
+      throw "Server disabled, stopping";
     }else{
-      console.log("Config enabled, continuing");
+      console.log("Server enabled, continuing");
     }
     
     //enable ssl
     this.ssl = false;
-    if(this.config.ssl.enable === true) {
+    if(this.config.ssl.enable) {
       this.ssl = true;
-      if(!this.fs.existsSync("./data/ssl/")) {
-        throw "You need to put ssl certificates in ./data/ssl/";
+      if(!this.fs.existsSync(this.config.ssl.location.folder)) {
+        throw `You need to put ssl certificates in ${this.config.ssl.location.key} and ${this.config.ssl.location.fullchain}`;
       }
+      this.secureserver = this.https.createServer({
+        key: this.fs.readFileSync(this.config.ssl.location.key),
+        cert: this.fs.readFileSync(this.config.ssl.location.fullchain)
+      });
+      console.log("SSL enabled");
     }
   }
   
   main() {
-    //init endpoints
+    //load endpoints
     this.server.get("/", (req, res) => {
       const uuid = this.uuid.v4();
       console.log(`New request to endpoint "/" by ${req.hostname}. ID: ${uuid}`);
       res.send("Hello World!");
       console.log(`Response to request ${uuid} from ${req.hostname} sent from endpoint "/".`);
     });
-    console.log("Root endpoint initated");
+    console.log("Root endpoint loaded");
     
-    //init server
-    this.server.listen(this.config.port, this.config.hostname, () => {
-      if(this.ssl === true) {
-        console.log(`Express server listening at https://${this.config.hostname}:${this.config.port}`);
-      }else{
-        console.log(`Express server listening at http://${this.config.hostname}:${this.config.port}`);
-      }
-    });
+    //load server
+    if(this.ssl) {
+      this.secureserver.listen(this.config.port, this.config.hostnam, () => {
+        console.log(`HTTPS server listening at https://${this.config.hostname}:${this.config.port}`);
+      });
+    }else{
+      this.server.listen(this.config.port, this.config.hostname, () => {
+        console.log(`HTTP server listening at http://${this.config.hostname}:${this.config.port}`);
+      });
+    }
     
     //log finish
     console.log("Node.js Application Loaded");
     console.log("Async code might not have run yet");
     console.log("Send the command \"stop\" to gracefully stop the server");
     
-    //server stopper
+    //stop server
     const readline = require("readline").createInterface({
       input: process.stdin,
       output: process.stdout
