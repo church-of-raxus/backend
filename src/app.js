@@ -45,10 +45,6 @@ module.exports = class {
       if(!this.fs.existsSync(this.config.ssl.location.folder)) {
         throw `You need to put ssl certificates in ${this.config.ssl.location.key} and ${this.config.ssl.location.fullchain}`;
       }
-      this.secureserver = this.https.createServer({
-        key: this.fs.readFileSync(this.config.ssl.location.key),
-        cert: this.fs.readFileSync(this.config.ssl.location.fullchain)
-      }, this.server);
       console.log("SSL enabled");
     }
   }
@@ -65,7 +61,11 @@ module.exports = class {
     
     //load server
     if(this.ssl) {
-      this.secureserver.listen(this.config.port, this.config.hostname, () => {
+      const secureserver = this.https.createServer({
+        key: this.fs.readFileSync(this.config.ssl.location.key),
+        cert: this.fs.readFileSync(this.config.ssl.location.fullchain)
+      }, this.server);
+      secureserver.listen(this.config.port, this.config.hostname, () => {
         console.log(`HTTPS server listening at https://${this.config.hostname}:${this.config.port}`);
       });
     }else{
