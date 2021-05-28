@@ -38,18 +38,32 @@ module.exports = class {
     }
     
     //enable ssl
+    console.log("Configuring ssl");
     this.ssl = false;
     if(this.config.ssl.enable) {
       this.ssl = true;
+      console.log("SSL enabled, searching for certs");
       if(!this.fs.existsSync(this.config.ssl.location.folder)) {
+        console.log("Certs not found");
         throw `You need to put ssl certificates in ${this.config.ssl.location.key} and ${this.config.ssl.location.fullchain}`;
       }
-      console.log("SSL enabled");
+      console.log("Certs found, generating server");
+      this.secureserver = this.https.createServer({
+        key: this.fs.readFileSync(this.config.ssl.location.key),
+        cert: this.fs.readFileSync(this.config.ssl.location.fullchain)
+      }, this.server);
+      console.log("Server generated");
+      console.log("SSL configured");
+    }else{
+      console.log("SSL disabled, continuing without SSL");
     }
+    
+    //final log of constructor
     console.log("App built");
   }
   
   main() {
+    //first log of main
     console.log("Running app");
     
     //load endpoints
@@ -57,11 +71,7 @@ module.exports = class {
     
     //load server
     if(this.ssl) {
-      const secureserver = this.https.createServer({
-        key: this.fs.readFileSync(this.config.ssl.location.key),
-        cert: this.fs.readFileSync(this.config.ssl.location.fullchain)
-      }, this.server);
-      secureserver.listen(this.config.port, this.config.hostname, () => {
+      this.secureserver.listen(this.config.port, this.config.hostname, () => {
         console.log(`HTTPS server listening at https://${this.config.hostname}:${this.config.port}`);
       });
     }else{
@@ -74,8 +84,12 @@ module.exports = class {
     console.log("Node.js Application Loaded");
     console.log("Async code might not have run yet");
     console.log("Send the command \"stop\" to gracefully stop the server");
-    
-    //stop server
+    this.listen();
+    return null;
+  }
+  
+  listen() {
+    //command handler
     const readline = require("readline").createInterface({
       input: process.stdin,
       output: process.stdout
@@ -104,6 +118,15 @@ module.exports = class {
             process.exit();
           }
         });
+      }else if(command === "help") {
+        console.log("Commands:");
+        console.log("stop - Stops the server.");
+        console.log("prodstop - Removes SSL certificates. Is meant to be used in deployment.");
+        this.listen();
+      }
+      else{
+        console.log("Command not found. Use \"help\" for a list of available commands");
+        this.listen();
       }
     });
     return null;
