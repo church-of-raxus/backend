@@ -1,11 +1,13 @@
 module.exports = class {
   constructor() {
-    //load imports
+    console.log("Building app");
+    //load dependencies
     this.fs = require("fs-extra");
     this.yaml = require("yaml");
     this.cors = require("cors");
     this.https = require("https");
-    console.log("Modules imported");
+    this.EndpointHandler = require("./endpoints.js");
+    console.log("Dependencies loaded");
     
     //load express
     const express = require("express");
@@ -44,14 +46,14 @@ module.exports = class {
       }
       console.log("SSL enabled");
     }
-    console.log("App constructed");
+    console.log("App built");
   }
   
   main() {
-    console.log("Running main");
+    console.log("Running app");
     
     //load endpoints
-    require("./endpoints.js");
+    new this.EndpointHandler(this.server);
     
     //load server
     if(this.ssl) {
