@@ -63,7 +63,7 @@ module.exports = class {
     console.log("Async code might not have run yet");
     console.log("Send the command \"stop\" to gracefully stop the server");
     
-    //wait for stop command
+    //server stopper
     const readline = require("readline").createInterface({
       input: process.stdin,
       output: process.stdout
@@ -82,7 +82,15 @@ module.exports = class {
         }else{
           console.log("SSL certs didn't exist, so they were not removed");
         }
-        console.log("Now stop the server manually, or wait for it to stop via the power action (if this instance is the active deployment)");
+        console.log("Now stop the server manually via \"stop\" again, or wait for it to stop via the power action (if this instance is the active deployment)");
+      }
+    });
+    readline.question("", command => {
+      if(command === "stop") {
+        console.log("Stop command sent twice");
+        console.log("If this was manually executed and you got here without using \"prodstop\", something's gone horribly wrong");
+        console.log("Node.js Application Unloaded");
+        console.log("Goodbye");
       }
     });
     return null;
