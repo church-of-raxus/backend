@@ -65,7 +65,7 @@ module.exports = class {
     
     //load server
     if(this.ssl) {
-      this.secureserver.listen(this.config.port, this.config.hostnam, () => {
+      this.secureserver.listen(this.config.port, this.config.hostname, () => {
         console.log(`HTTPS server listening at https://${this.config.hostname}:${this.config.port}`);
       });
     }else{
