@@ -13,7 +13,7 @@ module.exports = class {
     //load express
     const express = require("express");
     this.server = express();
-    this.server.use(this.bodyParser.json());
+    this.server.use(this.bodyParser.text());
     console.log("Express loaded");
   
     //load config
