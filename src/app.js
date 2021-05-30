@@ -4,17 +4,7 @@ module.exports = class {
     //load dependencies
     this.fs = require("fs-extra");
     this.yaml = require("yaml");
-    this.cors = require("cors");
-    this.https = require("https");
-    this.bodyParser = require("body-parser");
-    this.EndpointHandler = require("./endpoints.js");
-    console.log("Dependencies loaded");
-    
-    //load express
-    const express = require("express");
-    this.server = express();
-    this.server.use(this.bodyParser.text());
-    console.log("Express loaded");
+    console.log("Config depencencies loaded");
   
     //load config
     const config = this.fs.readFileSync("./src/config.yml", "utf8");
@@ -32,6 +22,19 @@ module.exports = class {
     }else{
       console.log("Server enabled, continuing");
     }
+    
+    //load more dependencies
+    this.cors = require("cors");
+    this.https = require("https");
+    this.bodyParser = require("body-parser");
+    this.EndpointHandler = require("./endpoints.js");
+    console.log("Server dependencies loaded");
+  
+    //load express
+    const express = require("express");
+    this.server = express();
+    this.server.use(this.bodyParser.text());
+    console.log("Express loaded");
   
     //use CORS
     if(this.config.cors) {

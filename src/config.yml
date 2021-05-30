@@ -6,6 +6,8 @@ port: 5000
 hostname: localhost
 # CORS settings
 cors: false
+# Debug logging settings
+logging: true
 # SSL settings
 ssl:
   # Use ssl
