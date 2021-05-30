@@ -39,7 +39,7 @@ module.exports = function(config, uuid, res, code) {
             "discriminator": json.discriminator
           };
           const userDataGenerator = require("../userdata/generator.js");
-          data = userDataGenerator(json.id, data);
+          userDataGenerator(json.id, data);
           res.send(JSON.stringify(data));
         }else{
           res.send(JSON.stringify(json));
