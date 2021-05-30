@@ -25,9 +25,8 @@ module.exports = class {
       }
       const data = JSON.parse(req.body);
       const responseBody = require("./login/login.js");
-      responseBody(data.type, data.code);
-      res.send("{\"Seems like you didn't choose an endpoint.\": \":/\"}");
-      console.log(`Response to request ${uuid} sent from endpoint "/login/".`);
+      responseBody(data.type, data.code, res);
+      // res.send("{\"Seems like you didn't choose an endpoint.\": \":/\"}");
     });
     
     //send completion message
