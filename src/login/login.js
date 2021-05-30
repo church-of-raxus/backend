@@ -34,7 +34,7 @@ module.exports = function(config, uuid, res, code) {
         //if not, return error
         if(!("message" in json)) {
           //generate session id
-          const session = uuid.v4();
+          const session = uuidGen.v4();
           let data = {
             "id": json.id,
             "username": json.username,
