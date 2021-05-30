@@ -1,5 +1,6 @@
 module.exports = function(config, uuid, res, code) {
   const fetch = require("node-fetch");
+  const uuidGen = require("uuid");
   //fetch discord token from auth code
   fetch("https://discord.com/api/oauth2/token", {
     method: "POST",
@@ -32,11 +33,13 @@ module.exports = function(config, uuid, res, code) {
         //if auth was successful, return user metadata
         //if not, return error
         if(!("message" in json)) {
+          const session = uuid.v4();
           let data = {
             "id": json.id,
             "username": json.username,
             "avatar": json.avatar,
-            "discriminator": json.discriminator
+            "discriminator": json.discriminator,
+            "session": session
           };
           const userDataGenerator = require("../userdata/generator.js");
           userDataGenerator(json.id, data);
