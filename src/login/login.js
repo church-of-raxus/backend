@@ -1,4 +1,4 @@
-module.exports = function(type, code, res) {
+module.exports = function(uuid, res, type, code) {
   const fetch = require("node-fetch");
   fetch("https://discord.com/api/users/@me", {
     headers: {
