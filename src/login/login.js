@@ -4,7 +4,7 @@ module.exports = function(type, code, res) {
     headers: {
       authorization: `${type} ${code}`,
     },
-  }).then(res => res.json()).then(json => function() {
+  }).then(res => res.json()).then(json => {
     console.log(json);
     res.send(JSON.stringify(json));
     console.log(`Response to request ${uuid} sent from endpoint "/login/".`);
