@@ -33,6 +33,7 @@ module.exports = function(config, uuid, res, code) {
         //if auth was successful, return user metadata
         //if not, return error
         if(!("message" in json)) {
+          //generate session id
           const session = uuid.v4();
           let data = {
             "id": json.id,
