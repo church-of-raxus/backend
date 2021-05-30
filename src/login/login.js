@@ -27,6 +27,16 @@ module.exports = function(config, uuid, res, code) {
       if(config.logging) {
         console.log(json);
       }
+      if(!("message" in json)) {
+        res.send(JSON.stringify({
+          "id": json.id,
+          "username": json.username,
+          "avatar": json.avatar,
+          "discriminator": json.discriminator
+        }));
+      }else{
+        res.send(JSON.stringify(json));
+      }
       res.send(JSON.stringify(json));
       console.log(`Response to request ${uuid} sent from endpoint "/login/".`);
     });
