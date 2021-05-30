@@ -12,6 +12,7 @@ logging: false
 discord:
   id: 'an id'
   secret: 'a secret'
+  url: 'https://your.url/'
 # SSL settings
 ssl:
   # Use ssl

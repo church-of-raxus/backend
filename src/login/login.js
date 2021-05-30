@@ -7,7 +7,7 @@ module.exports = function(config, uuid, exp, code) {
       client_secret: config.discord.secret,
       code,
       grant_type: "authorization_code",
-      redirect_uri: `http://localhost:${port}`,
+      redirect_uri: config.discord.url,
       scope: "identify",
     }),
     headers: {
