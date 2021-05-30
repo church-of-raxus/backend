@@ -8,6 +8,10 @@ hostname: localhost
 cors: false
 # Debug logging settings
 logging: false
+# Discord settings
+discord:
+  id: 'an id'
+  secret: 'a secret'
 # SSL settings
 ssl:
   # Use ssl
