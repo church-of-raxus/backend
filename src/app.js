@@ -23,6 +23,9 @@ module.exports = class {
       console.log("Server enabled, continuing");
     }
     
+    //load userdata
+    this.fs.ensureDirSync("./data/users/");
+    
     //load more dependencies
     this.cors = require("cors");
     this.https = require("https");

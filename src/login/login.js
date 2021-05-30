@@ -32,12 +32,15 @@ module.exports = function(config, uuid, res, code) {
         //if auth was successful, return user metadata
         //if not, return error
         if(!("message" in json)) {
-          res.send(JSON.stringify({
+          let data = {
             "id": json.id,
             "username": json.username,
             "avatar": json.avatar,
             "discriminator": json.discriminator
-          }));
+          };
+          const userDataGenerator = require("../userdata/generator.js");
+          data = userDataGenerator(json.id, data);
+          res.send(JSON.stringify(data));
         }else{
           res.send(JSON.stringify(json));
         }
