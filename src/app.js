@@ -72,7 +72,7 @@ module.exports = class {
     console.log("Running app");
     
     //load endpoints
-    new this.EndpointHandler(this.server);
+    new this.EndpointHandler(this.server, this.config);
     
     //load server
     console.log("Starting server");

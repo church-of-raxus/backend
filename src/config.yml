@@ -7,7 +7,7 @@ hostname: localhost
 # CORS settings
 cors: false
 # Debug logging settings
-logging: true
+logging: false
 # SSL settings
 ssl:
   # Use ssl
