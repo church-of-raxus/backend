@@ -18,27 +18,33 @@ module.exports = function(config, uuid, res, code) {
     if(config.logging) {
       console.log(json);
     }
-    //fetch user metadata, and return the data needed on the frontend
-    fetch("https://discord.com/api/users/@me", {
-      headers: {
-        authorization: `${json.token_type} ${json.access_token}`,
-      },
-    }).then(data => data.json()).then(json => {
-      if(config.logging) {
-        console.log(json);
-      }
-      if(!("message" in json)) {
-        res.send(JSON.stringify({
-          "id": json.id,
-          "username": json.username,
-          "avatar": json.avatar,
-          "discriminator": json.discriminator
-        }));
-      }else{
-        res.send(JSON.stringify(json));
-      }
+    //if auth was successful, fetch user metadata
+    //if not, return error
+    if(!("error" in json)) {
+      fetch("https://discord.com/api/users/@me", {
+        headers: {
+          authorization: `${json.token_type} ${json.access_token}`,
+        },
+      }).then(data => data.json()).then(json => {
+        if(config.logging) {
+          console.log(json);
+        }
+        //if auth was successful, return user metadata
+        //if not, return error
+        if(!("message" in json)) {
+          res.send(JSON.stringify({
+            "id": json.id,
+            "username": json.username,
+            "avatar": json.avatar,
+            "discriminator": json.discriminator
+          }));
+        }else{
+          res.send(JSON.stringify(json));
+        }
+      });
+    }else{
       res.send(JSON.stringify(json));
-      console.log(`Response to request ${uuid} sent from endpoint "/login/".`);
-    });
+    }
+    console.log(`Response to request ${uuid} sent from endpoint "/login/".`);
   });
 };
