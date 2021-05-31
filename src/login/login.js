@@ -43,8 +43,8 @@ module.exports = function(config, uuid, res, code) {
             "session": session
           };
           const userDataGenerator = require("../userdata/generator.js");
-          userDataGenerator(json.id, data);
-          res.send(JSON.stringify(data));
+          const response = userDataGenerator(json.id, data);
+          res.send(JSON.stringify(response));
         }else{
           res.send(JSON.stringify(json));
         }
