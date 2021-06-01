@@ -29,7 +29,7 @@ module.exports = class {
     });
     
     //coin getter endpoint
-    server.post("/getcoin/", (req, res) => {
+    server.post("/coin/get/", (req, res) => {
       const uuid = this.uuid.v4();
       console.log(`New request to endpoint "/coin/get/". ID: ${uuid}`);
       res.setHeader("Content-Type", "text/plain");
