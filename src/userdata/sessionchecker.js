@@ -4,12 +4,10 @@ module.exports = function(id, session) {
   const fs = require("fs-extra");
   //time and hash
   const time = Date.now();
-  session = hasher(session);
-  console.log(session.toString());
-  session = JSON.parse(session);
+  session = hasher(session).toString();
   if(fs.pathExistsSync(`./data/users/${id}.json`)) {
     const file = fs.readJsonSync(`./data/users/${id}.json`);
-    if(JSON.parse(file.session) === session && file.timeout > time) {
+    if(file.session === session && file.timeout > time) {
       return true;
     }else{
       return false;

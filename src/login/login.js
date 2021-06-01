@@ -37,7 +37,7 @@ module.exports = function(config, uuid, res, code) {
           //generate session id
           let session = uuidGen.v4();
           let timeout = Date.now() + 36000000;
-          let hashedSession = hasher(session);
+          let hashedSession = hasher(session).toString();
           let data = {
             "id": json.id,
             "username": json.username,
