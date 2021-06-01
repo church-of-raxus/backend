@@ -5,10 +5,10 @@ module.exports = function(id, session) {
   //time and hash
   const time = Date.now();
   session = hasher(session);
-  session = session.stringify();
+  session = JSON.parse(session);
   if(fs.pathExistsSync(`./data/users/${id}.json`)) {
     const file = fs.readJsonSync(`./data/users/${id}.json`);
-    if(file.session.stringify() === session && file.timeout > time) {
+    if(JSON.parse(file.session) === session && file.timeout > time) {
       return true;
     }else{
       return false;
