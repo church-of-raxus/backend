@@ -4,9 +4,9 @@ module.exports = function(config, uuid, id, res) {
   if(config.logging) {
     console.log(bal);
   }
-  res.send({
+  res.send(JSON.stringify({
     "id": id,
     "balance": bal
-  });
+  }));
   console.log(`Response to request ${uuid} sent from endpoint "/coin/get/".`);
 };
