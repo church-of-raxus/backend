@@ -28,6 +28,19 @@ module.exports = class {
       responseBody(config, uuid, res, data.code);
     });
     
+    //coin getter endpoint
+    server.post("/coin/get/", (req, res) => {
+      const uuid = this.uuid.v4();
+      console.log(`New request to endpoint "/coin/get/". ID: ${uuid}`);
+      res.setHeader("Content-Type", "text/plain");
+      if(config.logging) {
+        console.log(req.body);
+      }
+      const data = JSON.parse(req.body);
+      const responseBody = require("./coin/get.js");
+      responseBody(config, uuid, data.id, res);
+    });
+    
     //send completion message
     console.log("Endpoints built");
   }
