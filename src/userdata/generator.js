@@ -7,6 +7,10 @@ module.exports = function(id, data, session) {
     data.join = `${date[1]} ${date[2]} ${date[3]}`;
     fs.writeJsonSync(`./data/users/${id}.json`, data);
   }
+  if(!("bal" in file)) {
+    data.bal = 0;
+    fs.writeJsonSync(`./data/users/${id}.json`, data);
+  }
   data.session = session;
   delete data.timeout;
   return data;
