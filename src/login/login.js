@@ -1,6 +1,7 @@
 module.exports = function(config, uuid, res, code) {
   const fetch = require("node-fetch");
   const uuidGen = require("uuid");
+  const hasher = require("crypto-js/sha256");
   //fetch discord token from auth code
   fetch("https://discord.com/api/oauth2/token", {
     method: "POST",
@@ -34,16 +35,19 @@ module.exports = function(config, uuid, res, code) {
         //if not, return error
         if(!("message" in json)) {
           //generate session id
-          const session = uuidGen.v4();
+          let session = uuidGen.v4();
+          let timeout = Date.now() + 36000000;
+          let hashedSession = hasher(session);
           let data = {
             "id": json.id,
             "username": json.username,
             "avatar": json.avatar,
             "discriminator": json.discriminator,
-            "session": session
+            "session": hashedSession,
+            "timeout": timeout
           };
           const userDataGenerator = require("../userdata/generator.js");
-          const response = userDataGenerator(json.id, data);
+          const response = userDataGenerator(json.id, data, session);
           res.send(JSON.stringify(response));
         }else{
           res.send(JSON.stringify(json));
