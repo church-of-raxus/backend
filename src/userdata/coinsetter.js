@@ -7,7 +7,7 @@ module.exports = function(id, positive, change) {
   }else{
     file.bal = file.bal - change;
   }
-  fs.writeJsonSync(`./data/users${id}.json`, file);
+  fs.writeJsonSync(`./data/users/${id}.json`, file);
   return {
     "success": true,
     "id": file.id,
