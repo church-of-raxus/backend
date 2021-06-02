@@ -9,4 +9,5 @@ module.exports = function(config, uuid, id, session, positive, change, res) {
       "success": false
     }));
   }
+  console.log(`Response to request ${uuid} sent from endpoint "/coin/set/".`);
 };

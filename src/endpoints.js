@@ -54,6 +54,19 @@ module.exports = class {
       responseBody(config, uuid, data.id, data.session, data.positive, data.change, res);
     });
     
+    //reauth endpoint
+    server.post("/reauth/", (req, res) => {
+      const uuid = this.uuid.v4();
+      console.log(`New request to endpoint "/reauth/". ID: ${uuid}`);
+      res.setHeader("Content-Type", "text/plain");
+      if(config.logging) {
+        console.log(req.body);
+      }
+      const data = JSON.parse(req.body);
+      const responseBody = require("./login/reauth.js");
+      responseBody(uuid, data.id, data.session, res);
+    });
+    
     //send completion message
     console.log("Endpoints built");
   }
