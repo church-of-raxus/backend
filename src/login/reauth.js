@@ -4,6 +4,7 @@ module.exports = function(uuid, id, session, res) {
   if(verifier(id, session)) {
     let file = fs.readJsonSync(`./data/users/${id}.json`);
     file.timeout += 600000;
+    fs.writeJsonSync(`./data/users/${id}.json`, file);
     res.send(JSON.stringify({
       "success": true
     }));
