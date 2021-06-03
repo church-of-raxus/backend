@@ -3,6 +3,7 @@ module.exports = function(id, data, session) {
   fs.writeJsonSync(`./data/users/${id}.json`, data);
   const file = fs.readJsonSync(`./data/users/${id}.json`);
   console.log(data);
+  console.log(file);
   if(!("join" in file)) {
     const date = Date().split(" ");
     data.join = `${date[1]} ${date[2]} ${date[3]}`;
