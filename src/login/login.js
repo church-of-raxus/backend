@@ -50,11 +50,15 @@ module.exports = function(config, uuid, res, code) {
           const response = userDataGenerator(json.id, data, session);
           res.send(JSON.stringify(response));
         }else{
-          res.send(JSON.stringify(json));
+          res.send(JSON.stringify({
+            "success": false
+          }));
         }
       });
     }else{
-      res.send(JSON.stringify(json));
+      res.send(JSON.stringify({
+        "success": false
+      }));
     }
     console.log(`Response to request ${uuid} sent from endpoint "/login/".`);
   });

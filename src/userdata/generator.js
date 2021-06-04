@@ -15,5 +15,6 @@ module.exports = function(id, data, session) {
   fs.writeJsonSync(`./data/users/${id}.json`, data);
   data.session = session;
   delete data.timeout;
+  data.success = true;
   return data;
 };
