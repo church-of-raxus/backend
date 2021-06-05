@@ -74,6 +74,11 @@ module.exports = class {
     //first log of main
     console.log("Running app");
     
+    //update daily coin balances
+    console.log("Updating coin balances of users who have logged in within the past 24 hours");
+    const daily = require("./userdata/coinsetter.js");
+    daily(this.config);
+    
     //load endpoints
     new this.EndpointHandler(this.server, this.config);
     

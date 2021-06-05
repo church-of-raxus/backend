@@ -1,18 +1,15 @@
-module.exports = function(id, positive, change) {
-  //returns old, new, and id if change is integer and successful, returns failure if not
-  const fs = require("fs-extra");
-  const file = fs.readJsonSync(`./data/users/${id}.json`);
-  const oldBal = file.bal;
-  if(positive) {
-    file.bal = file.bal + change;
-  }else{
-    file.bal = file.bal - change;
-  }
-  fs.writeJsonSync(`./data/users/${id}.json`, file);
-  return {
-    "success": true,
-    "id": file.id,
-    "oldBal": oldBal,
-    "newBal": file.bal
-  };
+module.exports = function(config) {
+  //updates files daily
+  const fs = require("fs");
+  const fse = require("fs-extra");
+  const time = Date.now() - 86400000;
+  fs.readdir("./data/users/", function(files) {
+    for(let file of files) {
+      const contents = fse.readJsonSync(`./data/users/${file}`);
+      if(contents.timeout > time) {
+        contents.bal += config.daily;
+        fse.writeJsonSync(`./data/users/${file}`, contents);
+      }
+    }
+  });
 };

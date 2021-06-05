@@ -22,3 +22,5 @@ ssl:
     folder: './data/ssl/'
     key: './data/ssl/ssl.key'
     fullchain: './data/ssl/full.chain'
+# Raxcoin settings
+daily: 1000

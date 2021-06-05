@@ -27,19 +27,6 @@ module.exports = class {
       const responseBody = require("./login/login.js");
       responseBody(config, uuid, res, data.code);
     });
-  
-    //coin setter endpoint
-    server.post("/coin/set/", (req, res) => {
-      const uuid = this.uuid.v4();
-      console.log(`New request to endpoint "/coin/set/". ID: ${uuid}`);
-      res.setHeader("Content-Type", "text/plain");
-      if(config.logging) {
-        console.log(req.body);
-      }
-      const data = JSON.parse(req.body);
-      const responseBody = require("./coin/set.js");
-      responseBody(config, uuid, data.id, data.session, data.positive, data.change, res);
-    });
     
     //reauth endpoint
     server.post("/reauth/", (req, res) => {
