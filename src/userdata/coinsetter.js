@@ -3,7 +3,10 @@ module.exports = function(config) {
   const fs = require("fs");
   const fse = require("fs-extra");
   const time = Date.now() - 86400000;
-  fs.readdir("./data/users/", function(files) {
+  fs.readdir("./data/users/", function(err, files) {
+    if(err) {
+      throw err;
+    }
     for(let file of files) {
       const contents = fse.readJsonSync(`./data/users/${file}`);
       if(contents.timeout > time) {
