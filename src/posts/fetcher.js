@@ -5,15 +5,14 @@ module.exports = function(uuid, current, res) {
   //create post obj
   let body = {posts:[], success: true};
   //check if next 3 posts exists, if they do add them
-  console.log(current);
   if(fs.pathExistsSync(`./data/posts/${current + 1}.json`)) {
-    body.posts.first = fs.readJsonSync(`./data/posts/${current + 1}.json`);
+    body.posts[0] = fs.readJsonSync(`./data/posts/${current + 1}.json`);
   }
   if(fs.pathExistsSync(`./data/posts/${current + 2}.json`)) {
-    body.posts.second = fs.readJsonSync(`./data/posts/${current + 2}.json`);
+    body.posts[1] = fs.readJsonSync(`./data/posts/${current + 2}.json`);
   }
   if(fs.pathExistsSync(`./data/posts/${current + 3}.json`)) {
-    body.posts.third = fs.readJsonSync(`./data/posts/${current + 3}.json`);
+    body.posts[2] = fs.readJsonSync(`./data/posts/${current + 3}.json`);
   }
   //send response
   res.send(JSON.stringify(body));
