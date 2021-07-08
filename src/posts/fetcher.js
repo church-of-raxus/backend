@@ -11,6 +11,7 @@ module.exports = function(uuid, current, res) {
   if(fs.pathExistsSync(`./data/posts/${current + 3}.json`)) {
     body.posts.third = fs.readJsonSync(`./data/posts/${current + 3}.json`);
   }
-  res.send(body);
+  body.success = true;
+  res.send(JSON.stringify(body));
   console.log(`Response to request ${uuid} sent from endpoint "/posts/fetch/".`);
 };
