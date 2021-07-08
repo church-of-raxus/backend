@@ -40,6 +40,19 @@ module.exports = class {
       const responseBody = require("./login/reauth.js");
       responseBody(uuid, data.id, data.session, res);
     });
+
+    //post fetcher endpoint
+    server.post("/posts/fetch/", (req, res) => {
+      const uuid = this.uuid.v4();
+      console.log(`New request to endpoint "/posts/fetch/". ID: ${uuid}`);
+      res.setHeader("Content-Type", "text/plain");
+      if(config.logging) {
+        console.log(req.body);
+      }
+      const data = JSON.parse(req.body);
+      const responseBody = require("./posts/fetcher.js");
+      responseBody(uuid, data.current ,res)
+    });
     
     //send completion message
     console.log("Endpoints built");
