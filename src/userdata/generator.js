@@ -1,4 +1,5 @@
 module.exports = function(id, data, session) {
+  "use strict";
   const fs = require("fs-extra");
   const file = fs.readJsonSync(`./data/users/${id}.json`);
   if("join" in file) {
