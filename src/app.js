@@ -115,7 +115,7 @@ module.exports = class {
       input: process.stdin,
       output: process.stdout
     });
-    await readline.question("", command => {
+    readline.question("", command => {
       switch(command) {
         case "stop":
           console.log("SSL certs were NOT removed");
@@ -155,7 +155,7 @@ module.exports = class {
           console.log("Command not found. Use \"help\" for a list of available commands");
           break;
       }
+      this.listen();
     });
-    this.listen();
   }
 };
