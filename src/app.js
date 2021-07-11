@@ -115,7 +115,7 @@ module.exports = class {
       input: process.stdin,
       output: process.stdout
     });
-    readline.question("", command => {
+    await readline.question("", command => {
       switch(command) {
         case "stop":
           console.log("SSL certs were NOT removed");
@@ -150,14 +150,12 @@ module.exports = class {
           console.log("stop - Stops the server.");
           console.log("prodstop - Removes SSL certificates. Is meant to be used in deployment.");
           console.log("version - Displays the branch and commit of the current build.");
-          this.listen();
           break;
         default:
           console.log("Command not found. Use \"help\" for a list of available commands");
-          this.listen();
           break;
       }
     });
-    return null;
+    this.listen();
   }
 };
