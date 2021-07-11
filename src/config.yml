@@ -19,8 +19,8 @@ ssl:
   enable: false
   # Key and fullchain location from the location of index.js
   location:
-    folder: './data/ssl/'
-    key: './data/ssl/ssl.key'
-    fullchain: './data/ssl/full.chain'
+    folder: '../data/ssl/'
+    key: '../data/ssl/ssl.key'
+    fullchain: '../data/ssl/full.chain'
 # Raxcoin settings
 daily: 1000

@@ -2,9 +2,9 @@ module.exports = function(uuid, id, session, res) {
   const verifier = require("../userdata/sessionchecker.js");
   const fs = require("fs-extra");
   if(verifier(id, session)) {
-    let file = fs.readJsonSync(`./data/users/${id}.json`);
+    let file = fs.readJsonSync(`../data/users/${id}.json`);
     file.timeout += 600000;
-    fs.writeJsonSync(`./data/users/${id}.json`, file);
+    fs.writeJsonSync(`../data/users/${id}.json`, file);
     res.send(JSON.stringify({
       "success": true
     }));

@@ -5,8 +5,8 @@ module.exports = function(id, session) {
   //time and hash
   const time = Date.now();
   session = hasher(session).toString();
-  if(fs.pathExistsSync(`./data/users/${id}.json`)) {
-    const file = fs.readJsonSync(`./data/users/${id}.json`);
+  if(fs.pathExistsSync(`../data/users/${id}.json`)) {
+    const file = fs.readJsonSync(`../data/users/${id}.json`);
     if(file.session === session && file.timeout > time) {
       return true;
     }else{

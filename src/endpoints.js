@@ -51,7 +51,20 @@ module.exports = class {
       }
       const data = JSON.parse(req.body);
       const responseBody = require("./posts/fetcher.js");
-      responseBody(uuid, data.current ,res)
+      responseBody(uuid, data.current ,res);
+    });
+
+    //user meta getter endpoint
+    server.post("/user/get/", (req, res) => {
+      const uuid = this.uuid.v4();
+      console.log(`New request to endpoint "/user/get/". ID: ${uuid}`);
+      res.setHeader("Content-Type", "text/plain");
+      if(config.logging) {
+        console.log(req.body);
+      }
+      const data = JSON.parse(req.body);
+      const responseBody = require("./userdata/fetcher.js");
+      responseBody(uuid, data.user, res);
     });
     
     //send completion message

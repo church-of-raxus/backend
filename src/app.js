@@ -8,12 +8,12 @@ module.exports = class {
   
     //load config
     const config = this.fs.readFileSync("./src/config.yml", "utf8");
-    if(!this.fs.existsSync("./data/config.yml")) {
-      this.fs.mkdirsSync("./data/");
-      this.fs.writeFileSync("./data/config.yml", config);
+    if(!this.fs.existsSync("../data/config.yml")) {
+      this.fs.mkdirsSync("../data/");
+      this.fs.writeFileSync("../data/config.yml", config);
       throw "Please setup your local data and/or config!";
     }
-    this.config = this.yaml.parse(this.fs.readFileSync("./data/config.yml", "utf8"));
+    this.config = this.yaml.parse(this.fs.readFileSync("../data/config.yml", "utf8"));
     console.log("Config loaded");
     
     //check if server is enabled
@@ -24,8 +24,8 @@ module.exports = class {
     }
     
     //load data
-    this.fs.ensureDirSync("./data/users/");
-    this.fs.ensureDirSync("./data/posts");
+    this.fs.ensureDirSync("../data/users/");
+    this.fs.ensureDirSync("../data/posts");
     console.log("Server data loaded");
     
     //load more dependencies

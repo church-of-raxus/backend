@@ -1,6 +1,7 @@
 module.exports = function(id, data, session) {
+  "use strict";
   const fs = require("fs-extra");
-  const file = fs.readJsonSync(`./data/users/${id}.json`);
+  const file = fs.readJsonSync(`../data/users/${id}.json`);
   if("join" in file) {
     data.join = file.join;
   }else{
@@ -12,7 +13,7 @@ module.exports = function(id, data, session) {
   }else{
     data.bal = 0;
   }
-  fs.writeJsonSync(`./data/users/${id}.json`, data);
+  fs.writeJsonSync(`../data/users/${id}.json`, data);
   data.session = session;
   delete data.timeout;
   data.success = true;
