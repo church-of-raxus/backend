@@ -102,6 +102,10 @@ module.exports = class {
     }
     
     //log finish
+    const origHead = this.fs.readFileSync("./.git/FETCH_HEAD");
+    let commit = origHead.split("\t\t")[0];
+    let branch = origHead.split("\t\t")[1].split("' of")[0].split("branch '")[1];
+    console.log(`Version: ${branch}.${commit}`);
     console.log("Node.js Application Loaded");
     console.log("Async code might not have run yet");
     console.log("Send the command \"stop\" to gracefully stop the server");
@@ -143,7 +147,10 @@ module.exports = class {
           });
           break;
         case "version":
-          console.log("finish this pls");
+          const origHead = this.fs.readFileSync("./.git/FETCH_HEAD");
+          let commit = origHead.split("\t\t")[0];
+          let branch = origHead.split("\t\t")[1].split("' of")[0].split("branch '")[1];
+          console.log(`Version: ${branch}.${commit}`);
           break;
         case "help":
           console.log("Commands:");
