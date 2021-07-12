@@ -102,7 +102,7 @@ module.exports = class {
     }
     
     //log finish
-    const origHead = this.fs.readFileSync("./.git/FETCH_HEAD");
+    const origHead = this.fs.readFileSync("./.git/FETCH_HEAD").toString();
     let commit = origHead.split("\t\t")[0];
     let branch = origHead.split("\t\t")[1].split("' of")[0].split("branch '")[1];
     console.log(`Version: ${branch}.${commit}`);
@@ -147,7 +147,7 @@ module.exports = class {
           });
           break;
         case "version":
-          const origHead = this.fs.readFileSync("./.git/FETCH_HEAD");
+          const origHead = this.fs.readFileSync("./.git/FETCH_HEAD").toString();
           let commit = origHead.split("\t\t")[0];
           let branch = origHead.split("\t\t")[1].split("' of")[0].split("branch '")[1];
           console.log(`Version: ${branch}.${commit}`);
