@@ -102,6 +102,10 @@ module.exports = class {
     }
     
     //log finish
+    const origHead = this.fs.readFileSync("./.git/FETCH_HEAD").toString();
+    let commit = origHead.split("\t\t")[0];
+    let branch = origHead.split("\t\t")[1].split("' of")[0].split("branch '")[1];
+    console.log(`Version: ${branch}.${commit}`);
     console.log("Node.js Application Loaded");
     console.log("Async code might not have run yet");
     console.log("Send the command \"stop\" to gracefully stop the server");
@@ -109,47 +113,56 @@ module.exports = class {
     return null;
   }
   
-  listen() {
+  async listen() {
     //command handler
     const readline = require("readline").createInterface({
       input: process.stdin,
       output: process.stdout
     });
     readline.question("", command => {
-      if(command === "stop") {
-        console.log("SSL certs were NOT removed");
-        console.log("If you need to remove them, either do it manually or stop the server with \"prodstop\"");
-        console.log("Node.js Application Unloaded");
-        console.log("Goodbye");
-        process.exit();
-      }else if(command === "prodstop") {
-        if(this.fs.pathExistsSync(this.config.ssl.location.folder)) {
-          this.fs.removeSync(this.config.ssl.location.folder);
-          console.log("SSL certs removed");
-        }else{
-          console.log("SSL certs didn't exist, so they were not removed");
-        }
-        console.log("Now stop the server manually via \"stop\" again, or wait for it to stop via the power action (if this instance is the active deployment)");
-        readline.question("", command => {
-          if(command === "stop") {
-            console.log("Stop command sent twice");
-            console.log("If this was manually executed and you got here without using \"prodstop\", something's gone horribly wrong");
-            console.log("Node.js Application Unloaded");
-            console.log("Goodbye");
-            process.exit();
+      switch(command) {
+        case "stop":
+          console.log("SSL certs were NOT removed");
+          console.log("If you need to remove them, either do it manually or stop the server with \"prodstop\"");
+          console.log("Node.js Application Unloaded");
+          console.log("Goodbye");
+          process.exit();
+          break;
+        case "prodstop":
+          if(this.fs.pathExistsSync(this.config.ssl.location.folder)) {
+            this.fs.removeSync(this.config.ssl.location.folder);
+            console.log("SSL certs removed");
+          }else{
+            console.log("SSL certs didn't exist, so they were not removed");
           }
-        });
-      }else if(command === "help") {
-        console.log("Commands:");
-        console.log("stop - Stops the server.");
-        console.log("prodstop - Removes SSL certificates. Is meant to be used in deployment.");
-        this.listen();
+          console.log("Now stop the server manually via \"stop\" again, or wait for it to stop via the power action (if this instance is the active deployment)");
+          readline.question("", command => {
+            if(command === "stop") {
+              console.log("Stop command sent twice");
+              console.log("If this was manually executed and you got here without using \"prodstop\", something's gone horribly wrong");
+              console.log("Node.js Application Unloaded");
+              console.log("Goodbye");
+              process.exit();
+            }
+          });
+          break;
+        case "version":
+          const origHead = this.fs.readFileSync("./.git/FETCH_HEAD").toString();
+          let commit = origHead.split("\t\t")[0];
+          let branch = origHead.split("\t\t")[1].split("' of")[0].split("branch '")[1];
+          console.log(`Version: ${branch}.${commit}`);
+          break;
+        case "help":
+          console.log("Commands:");
+          console.log("stop - Stops the server.");
+          console.log("prodstop - Removes SSL certificates. Is meant to be used in deployment.");
+          console.log("version - Displays the branch and commit of the current build.");
+          break;
+        default:
+          console.log("Command not found. Use \"help\" for a list of available commands");
+          break;
       }
-      else{
-        console.log("Command not found. Use \"help\" for a list of available commands");
-        this.listen();
-      }
+      this.listen();
     });
-    return null;
   }
 };
