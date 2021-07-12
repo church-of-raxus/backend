@@ -23,11 +23,13 @@ module.exports = function(uuid, id, session, title, bodyTitle, body, color, img,
       author: id,
       color: postColor,
       image: img,
-      body: {
+    };
+    if(bodyTitle.length > 0 && body.length > 0) {
+      post.body = {
         title: bodyTitle,
         description: body,
-      }
-    };
+      };
+    }
     //save post
     fse.writeJsonSync(`../data/posts/${postId}.json`, post);
     res.send(JSON.stringify({
