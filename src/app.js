@@ -76,12 +76,6 @@ module.exports = class {
     //first log of main
     console.log("Running app");
     
-    //update daily coin balances
-    console.log("Updating coin balances of users who have logged in within the past 24 hours");
-    const daily = require("./userdata/coinsetter.js");
-    daily(this.config);
-    console.log("Balances updated");
-    
     //load endpoints
     new this.EndpointHandler(this.server, this.config);
     
@@ -151,6 +145,12 @@ module.exports = class {
           let commit = origHead.split("\t\t")[0];
           let branch = origHead.split("\t\t")[1].split("' of")[0].split("branch '")[1];
           console.log(`Version: ${branch}.${commit}`);
+          break;
+        case "updatebal":
+          console.log("Updating coin balances of users who have logged in within the past 24 hours");
+          const daily = require("./userdata/coinsetter.js");
+          daily(this.config);
+          console.log("Balances updated");
           break;
         case "help":
           console.log("Commands:");
