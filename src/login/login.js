@@ -46,7 +46,7 @@ module.exports = function(config, uuid, res, code) {
             "session": hashedSession,
             "timeout": timeout
           };
-          const userDataGenerator = require("../userdata/generator.js");
+          const userDataGenerator = require("../users/maker.js");
           const response = userDataGenerator(json.id, data, session);
           res.send(JSON.stringify(response));
         }else{

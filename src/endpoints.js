@@ -50,7 +50,7 @@ module.exports = class {
         console.log(req.body);
       }
       const data = JSON.parse(req.body);
-      const responseBody = require("./posts/fetcher.js");
+      const responseBody = require("./posts/getter.js");
       responseBody(uuid, data.current ,res);
     });
 
@@ -63,8 +63,21 @@ module.exports = class {
         console.log(req.body);
       }
       const data = JSON.parse(req.body);
-      const responseBody = require("./userdata/fetcher.js");
+      const responseBody = require("./users/getter.js");
       responseBody(uuid, data.user, res);
+    });
+
+    //user meta getter endpoint
+    server.post("/posts/make/", (req, res) => {
+      const uuid = this.uuid.v4();
+      console.log(`New request to endpoint "/posts/make/". ID: ${uuid}`);
+      res.setHeader("Content-Type", "text/plain");
+      if(config.logging) {
+        console.log(req.body);
+      }
+      const data = JSON.parse(req.body);
+      const responseBody = require("./posts/setter.js");
+      responseBody(uuid, data.id, data.session, data.title, data.bodyTitle, data.body, data.color, data.img, res);
     });
     
     //send completion message
