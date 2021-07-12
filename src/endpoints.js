@@ -50,7 +50,7 @@ module.exports = class {
         console.log(req.body);
       }
       const data = JSON.parse(req.body);
-      const responseBody = require("./posts/fetcher.js");
+      const responseBody = require("./posts/getter.js");
       responseBody(uuid, data.current ,res);
     });
 
@@ -63,7 +63,7 @@ module.exports = class {
         console.log(req.body);
       }
       const data = JSON.parse(req.body);
-      const responseBody = require("./userdata/fetcher.js");
+      const responseBody = require("./users/getter.js");
       responseBody(uuid, data.user, res);
     });
     

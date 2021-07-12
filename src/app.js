@@ -148,7 +148,7 @@ module.exports = class {
           break;
         case "updatebal":
           console.log("Updating coin balances of users who have logged in within the past 24 hours");
-          const daily = require("./userdata/coinsetter.js");
+          const daily = require("./users/coin/setter.js");
           daily(this.config);
           console.log("Balances updated");
           break;

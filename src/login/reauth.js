@@ -1,5 +1,5 @@
 module.exports = function(uuid, id, session, res) {
-  const verifier = require("../userdata/sessionchecker.js");
+  const verifier = require("../users/authenticator.js");
   const fs = require("fs-extra");
   if(verifier(id, session)) {
     let file = fs.readJsonSync(`../data/users/${id}.json`);
