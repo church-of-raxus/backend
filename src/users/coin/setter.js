@@ -1,19 +1,9 @@
-module.exports = function(config) {
-  //updates files daily
+module.exports = function(id, change) {
   "use strict";
-  const fs = require("fs");
   const fse = require("fs-extra");
-  const time = Date.now() - 86400000;
-  fs.readdir("../data/users/", function(err, files) {
-    if(err) {
-      throw err;
-    }
-    for(let file of files) {
-      const contents = fse.readJsonSync(`../data/users/${file}`);
-      if(contents.timeout > time) {
-        contents.bal += config.daily;
-        fse.writeJsonSync(`../data/users/${file}`, contents);
-      }
-    }
-  });
+  if(fse.pathExistsSync(`../data/users/${id}.json`)) {
+    const file = fse.readJsonSync(`../data/users/${id}.json`);
+    file.bal += change;
+    fse.writeJsonSync(`../data/users/${file}`, file);
+  }
 };
