@@ -1,4 +1,5 @@
 module.exports = function(uuid, id, session, res) {
+  "use strict";
   const verifier = require("../users/authenticator.js");
   const fs = require("fs-extra");
   if(verifier(id, session)) {

@@ -1,4 +1,5 @@
 module.exports = function(id, session) {
+  "use strict";
   //imports
   const hasher = require("crypto-js/sha256");
   const fs = require("fs-extra");

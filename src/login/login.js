@@ -1,4 +1,5 @@
 module.exports = function(config, uuid, res, code) {
+  "use strict";
   const fetch = require("node-fetch");
   const uuidGen = require("uuid");
   const hasher = require("crypto-js/sha256");

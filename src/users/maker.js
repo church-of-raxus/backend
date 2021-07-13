@@ -1,7 +1,9 @@
 module.exports = function(id, data, session) {
   "use strict";
+  //imports
   const fs = require("fs-extra");
   const file = fs.readJsonSync(`../data/users/${id}.json`);
+  //dynamic values
   if("join" in file) {
     data.join = file.join;
   }else{
@@ -13,6 +15,12 @@ module.exports = function(id, data, session) {
   }else{
     data.bal = 0;
   }
+  if("rank" in file) {
+    data.rank = file.rank;
+  }else{
+    data.rank = 0;
+  }
+  //save
   fs.writeJsonSync(`../data/users/${id}.json`, data);
   data.session = session;
   delete data.timeout;

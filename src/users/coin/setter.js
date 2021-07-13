@@ -1,5 +1,6 @@
 module.exports = function(config) {
   //updates files daily
+  "use strict";
   const fs = require("fs");
   const fse = require("fs-extra");
   const time = Date.now() - 86400000;
