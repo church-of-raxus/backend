@@ -9,7 +9,8 @@ module.exports = function(uuid, user, res) {
       id: data.id,
       username: `${data.username}#${data.discriminator}`,
       pfp: data.avatar,
-      rank: data.rank
+      rank: data.rank,
+      bal: data.bal
     }));
   }else{
     res.send(JSON.stringify({

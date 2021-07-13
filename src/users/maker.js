@@ -20,6 +20,7 @@ module.exports = function(id, data, session) {
   }else{
     data.rank = 0;
   }
+  //save
   fs.writeJsonSync(`../data/users/${id}.json`, data);
   data.session = session;
   delete data.timeout;
