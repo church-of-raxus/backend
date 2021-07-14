@@ -96,10 +96,14 @@ module.exports = class {
     }
     
     //log finish
-    const origHead = this.fs.readFileSync("./.git/FETCH_HEAD").toString();
-    let commit = origHead.split("\t\t")[0];
-    let branch = origHead.split("\t\t")[1].split("' of")[0].split("branch '")[1];
-    console.log(`Version: ${branch}.${commit}`);
+    try{
+      const origHead = this.fs.readFileSync("./.git/FETCH_HEAD").toString();
+      let commit = origHead.split("\t\t")[0];
+      let branch = origHead.split("\t\t")[1].split("' of")[0].split("branch '")[1];
+      console.log(`Version: ${branch}.${commit}`);
+    }catch(e) {
+      console.log("Something's going on with git and we cannot figure out what version this is.");
+    }
     console.log("Node.js Application Loaded");
     console.log("Async code might not have run yet");
     console.log("Send the command \"stop\" to gracefully stop the server");
@@ -141,10 +145,14 @@ module.exports = class {
           });
           break;
         case "version":
-          const origHead = this.fs.readFileSync("./.git/FETCH_HEAD").toString();
-          let commit = origHead.split("\t\t")[0];
-          let branch = origHead.split("\t\t")[1].split("' of")[0].split("branch '")[1];
-          console.log(`Version: ${branch}.${commit}`);
+          try{
+            const origHead = this.fs.readFileSync("./.git/FETCH_HEAD").toString();
+            let commit = origHead.split("\t\t")[0];
+            let branch = origHead.split("\t\t")[1].split("' of")[0].split("branch '")[1];
+            console.log(`Version: ${branch}.${commit}`);
+          }catch(e) {
+            console.log("Something's going on with git and we cannot figure out what version this is.");
+          }
           break;
         case "updatebal":
           console.log("Updating coin balances of users who have logged in within the past 24 hours");
