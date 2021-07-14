@@ -4,6 +4,6 @@ module.exports = function(id, change) {
   if(fse.pathExistsSync(`../data/users/${id}.json`)) {
     const file = fse.readJsonSync(`../data/users/${id}.json`);
     file.bal += change;
-    fse.writeJsonSync(`../data/users/${file}`, file);
+    fse.writeJsonSync(`../data/users/${file}.json`, file);
   }
 };
